@@ -1,8 +1,16 @@
-﻿@{
+﻿@model ProductListViewModel
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    @foreach (var item in Model.Products)
+    {
+        <div>
+            <h3>@item.Name</h3>
+            @item.Description
+            <h4>@item.Price.ToString("c")</h4>
+        </div>
+    }
+    <div page-model="@Model.PagingInfo" page-action="Index"></div>
 </div>

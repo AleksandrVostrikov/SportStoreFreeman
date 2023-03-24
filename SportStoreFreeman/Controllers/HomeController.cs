@@ -1,21 +1,37 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SportStoreFreeman.Models;
+using SportStoreFreeman.Models.ViewModels;
+using SportStoreFreeman.Repositories.Db;
 using System.Diagnostics;
 
 namespace SportStoreFreeman.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly IStoreRepository _storeRepository;
+        public int PageSize = 4;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(
+            IStoreRepository storeRepository)
         {
-            _logger = logger;
+            _storeRepository = storeRepository;
         }
 
-        public IActionResult Index()
+        public ViewResult Index(int productPage = 1)
         {
-            return View();
+            return View(new ProductListViewModel
+            {
+                Products = _storeRepository.Products
+                .OrderBy(p => p.Name)
+                .Skip((productPage - 1) * PageSize)
+                .Take(PageSize),
+                PagingInfo = new()
+                {
+                    CurrentPage = productPage,
+                    ItemsPerPage = PageSize,
+                    TotalItems = _storeRepository.Products.Count()
+                }
+            });
         }
 
         public IActionResult Privacy()

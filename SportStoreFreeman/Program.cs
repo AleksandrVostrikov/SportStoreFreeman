@@ -1,7 +1,15 @@
+using Microsoft.EntityFrameworkCore;
+using SportStoreFreeman.Data;
+using SportStoreFreeman.Models;
+using SportStoreFreeman.Repositories.Db;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddDbContext<SportStoreDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("SportStoreConnectionString")));
+
+builder.Services.AddScoped<IStoreRepository, StoreRepository>();
 
 var app = builder.Build();
 
@@ -21,7 +29,13 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapControllerRoute(
+    name: "pagination",
+    pattern: "{controller=Home}/{action=Index}/Products/Page{productPage}");
+
+app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
+SeedData.EnsurePopulated(app);
 app.Run();
+
