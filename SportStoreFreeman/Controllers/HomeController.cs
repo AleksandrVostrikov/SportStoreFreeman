@@ -17,11 +17,12 @@ namespace SportStoreFreeman.Controllers
             _storeRepository = storeRepository;
         }
 
-        public ViewResult Index(int productPage = 1)
+        public ViewResult Index(string category,int productPage = 1)
         {
             return View(new ProductListViewModel
             {
                 Products = _storeRepository.Products
+                .Where(p => p.Category == category || category == null)
                 .OrderBy(p => p.Name)
                 .Skip((productPage - 1) * PageSize)
                 .Take(PageSize),
@@ -30,7 +31,8 @@ namespace SportStoreFreeman.Controllers
                     CurrentPage = productPage,
                     ItemsPerPage = PageSize,
                     TotalItems = _storeRepository.Products.Count()
-                }
+                },
+                CurrentCategory = category
             });
         }
 

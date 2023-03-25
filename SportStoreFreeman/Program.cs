@@ -29,9 +29,17 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapControllerRoute(
+    name: "catpage",
+    pattern: "{controller=Home}/{action=Index}/{category}/Page{productPage:int}");
+app.MapControllerRoute(
+    name: "page",
+    pattern: "{controller=Home}/{action=Index}/Page{productPage:int}");
+app.MapControllerRoute(
+    name: "category",
+    pattern: "{controller=Home}/{action=Index}/{category}");
+app.MapControllerRoute(
     name: "pagination",
     pattern: "{controller=Home}/{action=Index}/Products/Page{productPage}");
-
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");

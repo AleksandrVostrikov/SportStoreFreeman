@@ -1,0 +1,13 @@
+﻿@model Product
+@{
+}
+
+<div class="card mb-3" style="width: 25rem;">
+    <div class="card-body bg-light">
+        <h4 class="card-title">@Model.Name</h4>
+        <span class="badge bg-primary" style="float:right;">
+            <small>@Model.Price.ToString("c")</small>
+        </span>
+        <div class="card-text">@Model.Description</div>
+    </div>
+</div>
