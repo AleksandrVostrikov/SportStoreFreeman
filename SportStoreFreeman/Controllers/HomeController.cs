@@ -30,7 +30,9 @@ namespace SportStoreFreeman.Controllers
                 {
                     CurrentPage = productPage,
                     ItemsPerPage = PageSize,
-                    TotalItems = _storeRepository.Products.Count()
+                    TotalItems = category == null ? 
+                    _storeRepository.Products.Count() : _storeRepository.Products
+                    .Where(p => p.Category == category).Count()
                 },
                 CurrentCategory = category
             });

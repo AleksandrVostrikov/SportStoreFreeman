@@ -9,8 +9,10 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<SportStoreDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("SportStoreConnectionString")));
 
+builder.Services.AddRazorPages();
 builder.Services.AddScoped<IStoreRepository, StoreRepository>();
-
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -23,7 +25,8 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
+app.UseSession();
+app.MapRazorPages();
 app.UseRouting();
 
 app.UseAuthorization();
