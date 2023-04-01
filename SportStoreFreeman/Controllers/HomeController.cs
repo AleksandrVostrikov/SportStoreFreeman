@@ -17,7 +17,7 @@ namespace SportStoreFreeman.Controllers
             _storeRepository = storeRepository;
         }
 
-        public ViewResult Index(string category,int productPage = 1)
+        public ViewResult Index(string category, int productPage = 1)
         {
             return View(new ProductListViewModel
             {

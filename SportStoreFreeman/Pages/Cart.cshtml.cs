@@ -29,6 +29,7 @@ namespace SportStoreFreeman.Pages
             Product product = _storeRepository.Products.FirstOrDefault(p => p.ProductId == productId);
             Cart.AddItem(product, 1);
             return RedirectToPage(new { returnUrl });
+            
         }
 
         public IActionResult OnPostRemove(Guid productId, string returnUrl)

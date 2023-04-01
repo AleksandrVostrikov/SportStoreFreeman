@@ -1,0 +1,26 @@
+﻿@inherits LayoutComponentBase
+
+<div class="bg-info text-white p-2">
+    <span class="navbar-brand me-2">Администрирование</span>
+</div>
+<div class="container-fluid">
+    <div class="row p-2">
+        <div class="col-3">
+            <NavLink class="btn btn-outline-primary d-block mb-3" 
+                    href="/admin/products"
+                    ActiveClass="btn-primary text-white"
+                    Match="NavLinkMatch.Prefix">
+                Товары
+            </NavLink>
+            <NavLink class="btn btn-outline-primary d-block" 
+                    href="/admin/orders"
+                    ActiveClass="btn-primary text-white"
+                    Match="NavLinkMatch.Prefix">
+                Заказы
+            </NavLink>
+        </div>
+        <div class="col">
+            @Body
+        </div>
+    </div>
+</div>

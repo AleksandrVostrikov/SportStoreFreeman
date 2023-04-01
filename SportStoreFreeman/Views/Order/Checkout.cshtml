@@ -1,0 +1,35 @@
+﻿@model Order
+
+<h2>Данные для заказа</h2>
+
+<form asp-action="Checkout" method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <h3>ФИО</h3>
+    <div class="mb-3">
+        <input asp-for="Name" class="form-control" required/>
+    </div>
+    <h3>Адрес</h3>
+    <div class="mb-3">
+        <label>Улица, дом, квартира</label>
+        <input asp-for="Line1" class="form-control" required />
+    </div>
+    <div class="mb-3">
+        <label>Населенный пункт</label>
+        <input asp-for="City" class="form-control" required />
+    </div>
+    <div class="mb-3">
+        <label>Край, область, район</label>
+        <input asp-for="State" class="form-control" required />
+    </div>
+    <div class="mb-3">
+        <label>Индекс</label>
+        <input asp-for="Zip" class="form-control" required />
+    </div>
+    <h3>Опции</h3>
+    <div class="form-check">
+        <input asp-for="GiftWrap"/> Отправить в подарок
+    </div>
+    <div class="text-center">
+        <input class="btn btn-primary" type="submit" value="Завершить заказ" />
+    </div>
+</form>
