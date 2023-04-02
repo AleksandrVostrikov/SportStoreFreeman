@@ -21,5 +21,8 @@ namespace SportStoreFreeman.Models
         [Required(ErrorMessage = "Введите индекс")]
         public string Zip { get; set; }
         public bool GiftWrap { get; set; }
+        [BindNever]
+        public bool Shipped { get; set; } = false;
+
     }
 }

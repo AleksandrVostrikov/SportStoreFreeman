@@ -1,0 +1,42 @@
+﻿@page "/admin/products/details/{id:guid}"
+@using SportStoreFreeman.Repositories.Db;
+<h3 class="bg-info text-white text-center p-1">Детали товара</h3>
+
+<table class="table table-sm table-bordered table-stripped">
+    <tbody>
+        <tr>
+            <th>ID</th>
+            <td>@Product.ProductId</td>
+        </tr>
+        <tr>
+            <th>Товар</th>
+            <td>@Product.Name</td>
+        </tr>
+        <tr>
+            <th>Описание</th>
+            <td>@Product.Description</td>
+        </tr>
+        <tr>
+            <th>Категория</th>
+            <td>@Product.Category</td>
+        </tr>
+        <tr>
+            <th>Цена</th>
+            <td>@Product.Price.ToString("c")</td>
+        </tr>    
+    </tbody>
+</table>
+<NavLink class="btn btn-warning" href="@EditUrl">Изменить</NavLink>
+<NavLink class="btn btn-secondary" href="/admin/products">Назад</NavLink>
+@code {
+    [Inject]
+    public IStoreRepository Repository { get; set; }
+    [Parameter]
+    public Guid Id { get; set; }
+    public Product Product { get; set; }
+    protected override void OnParametersSet()
+    {
+        Product = Repository.Products.FirstOrDefault(p => p.ProductId == Id);
+    }
+    public string EditUrl => $"/admin/product/edit/{Product.ProductId}";
+}

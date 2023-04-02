@@ -1,2 +1,42 @@
 ﻿@page "/admin/orders"
-<h4>Это заказов компонет</h4>
+@using SportStoreFreeman.Repositories.Db;
+
+@inherits OwningComponentBase<IOrderRepository>
+
+<OrderTable TableTitle="Недоставленные заказы" 
+        Orders="UnshippedOrders" ButtonLabel="Отправлен" OrderSelected="ShipOrder" />
+<OrderTable TableTitle="Доставленные заказы" 
+       Orders="ShippedOrders" ButtonLabel="Вернуть" OrderSelected="ResetOrder" />
+<button class="btn btn-info" @onclick="@(e => UpdateData())">Обновить</button>
+
+@code {
+
+    public IOrderRepository Repository => Service;
+
+    public IEnumerable<Order> AllOrders { get; set; } = Enumerable.Empty<Order>();
+    public IEnumerable<Order> UnshippedOrders { get; set; } 
+        = Enumerable.Empty<Order>();
+    public IEnumerable<Order> ShippedOrders { get; set; } 
+        = Enumerable.Empty<Order>();
+
+    protected async override Task OnInitializedAsync() {
+        await UpdateData();
+    }
+
+    public async Task UpdateData() {
+        AllOrders = await Repository.Orders.ToListAsync();
+        UnshippedOrders = AllOrders.Where(o => !o.Shipped);
+        ShippedOrders = AllOrders.Where(o => o.Shipped);
+    }
+
+    public void ShipOrder(int id) => UpdateOrder(id, true);
+    public void ResetOrder(int id) => UpdateOrder(id, false);
+
+    private void UpdateOrder(int id, bool shipValue) {
+        Order? o = Repository.Orders.FirstOrDefault(o => o.OrderID == id);
+        if (o != null) {
+            o.Shipped = shipValue;
+            Repository.SaveOrder(o);
+        }
+    }
+}

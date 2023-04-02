@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SportStoreFreeman.Data;
 
@@ -11,9 +12,11 @@ using SportStoreFreeman.Data;
 namespace SportStoreFreeman.Migrations
 {
     [DbContext(typeof(SportStoreDbContext))]
-    partial class SportStoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230402141140_ShippedOrders")]
+    partial class ShippedOrders
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
