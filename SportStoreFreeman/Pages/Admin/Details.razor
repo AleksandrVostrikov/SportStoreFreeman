@@ -38,5 +38,5 @@
     {
         Product = Repository.Products.FirstOrDefault(p => p.ProductId == Id);
     }
-    public string EditUrl => $"/admin/product/edit/{Product.ProductId}";
+    public string EditUrl => $"/admin/products/edit/{Product.ProductId}";
 }

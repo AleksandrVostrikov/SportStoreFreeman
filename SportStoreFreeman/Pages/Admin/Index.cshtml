@@ -1,5 +1,7 @@
 ﻿@page "/admin"
 @model SportStoreFreeman.Pages.Admin.IndexModel
+@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize]
 @{
     Layout = null;
 }
